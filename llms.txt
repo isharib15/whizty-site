@@ -7,7 +7,7 @@
 - Who it is for: children aged 7 to 12. A parent or guardian registers and the child uses the app on the parent's phone.
 - What children learn: Social Courage (speaking up, confidence), Smart Money Habits, Leadership, Entrepreneurship and AI. More modules are being added.
 - How it works: one short mission a day (about 10 minutes), with points, streaks and badges, and a daily rest rule that keeps screen time healthy. Some missions use the microphone for speaking practice.
-- Platform: Android. Currently in Google Play closed testing; parents can join early access at https://whizty.com
+- Platform: Android. Currently in Google Play closed testing; parents can ask for early access by emailing support@whizty.com
 - Pricing (INR): Level 1 (the first 8 daily missions) is free with no card, UPI or sales calls. Level 2 onwards is coming soon: ₹199 for 1 month or ₹599 for 4 months (about 25% cheaper than four single months). Each payment is one-time and does not renew, so there is nothing to cancel. Within 7 days of paying, parents can email for a full refund. The price shown is the full amount; at present no GST is charged. Payments are handled by Razorpay.
 
 ## Privacy and safety
@@ -21,5 +21,5 @@
 
 - [Home page](https://whizty.com/): what WHIZTY is, safety, curriculum, pricing and early access
 - [Privacy Policy](https://whizty.com/privacy): exactly what data is collected and where it is kept
-- [Terms of Service](https://whizty.com/terms): plans, refunds and early access rules
+- [Terms of Service](https://whizty.com/terms): plans, refunds and early access
 - Contact: support@whizty.com
