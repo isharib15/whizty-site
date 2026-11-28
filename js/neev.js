@@ -158,22 +158,33 @@
   }
 
   /* ---- placement: hero circle -> travelling companion ---- */
+  // Neev follows the reader only when the empty space beside the page can hold all of him, so he never
+  // covers text. On narrower screens (and with reduced motion) he stays in the circle at the top.
+  const ROOM = 100; // pixels of empty space needed on one side
+  const sideSpace = () => {
+    const vw = document.documentElement.clientWidth;
+    return (vw - Math.min(1140, vw - 32)) / 2; // the same width as .wrap in style.css
+  };
+  const staysAtTop = () => reduce || sideSpace() < ROOM;
+
   function place(sp) {
     const vw = document.documentElement.clientWidth;
     const vh = innerHeight;
     const r = slot.getBoundingClientRect();
-    if (reduce) {
-      canvas.style.transform = 'translate3d(' + r.left + 'px,' + r.top + 'px,0) scale(' + (r.width / BOX) + ')';
+    const pinned = staysAtTop();
+    // When he stays, he is part of the page (absolute), so he scrolls away smoothly with the top section.
+    canvas.style.position = pinned ? 'absolute' : '';
+    if (pinned) {
+      canvas.style.transform = 'translate3d(' + (r.left + scrollX) + 'px,' + (r.top + scrollY) + 'px,0) scale(' + (r.width / BOX) + ')';
       return;
     }
-    const small = vw < 700;
-    const gutter = (vw - Math.min(1140, vw - 32)) / 2;   // empty space beside the content
-    const roomy = gutter >= 190;
-    const size = small ? 84 : roomy ? Math.min(176, gutter - 16) : 116;
-    const topY = small ? vh * 0.40 : 100;
-    const bottomY = vh - size - (small ? 14 : 22);
-    const sway = roomy ? (Math.sin(sp * Math.PI * 6) * 0.5 + 0.5) * Math.min(30, gutter - size - 12) : 0;
-    const cx = roomy ? vw - gutter + (gutter - size) / 2 - sway / 2 : vw - size - (small ? 2 : 6);
+    const gutter = sideSpace();
+    const size = Math.min(176, gutter - 16);
+    const topY = 100;
+    const bottomY = vh - size - 22;
+    const spare = Math.max(0, Math.min(30, gutter - size - 12));
+    const sway = (Math.sin(sp * Math.PI * 6) * 0.5 + 0.5) * spare;
+    const cx = vw - gutter + (gutter - size) / 2 - sway / 2;
     const cy = lerp(topY, bottomY, sp);
     const e = smooth(clamp(scrollY / (vh * 0.55), 0, 1));
     const x = lerp(r.left, cx, e);
@@ -183,7 +194,7 @@
   }
 
   function tick() {
-    target = reduce ? 0 : frameProgress();
+    target = staysAtTop() ? 0 : frameProgress();
     shown = lerp(shown, target, 0.16);
     if (Math.abs(target - shown) < 0.0005) shown = target;
     place(scrollProgress());
@@ -199,6 +210,9 @@
   }
 
   addEventListener('scroll', kick, { passive: true });
+  // fonts and pictures can move the top section after the first drawing: put him back in his circle
+  addEventListener('load', kick);
+  if (document.fonts) document.fonts.ready.then(kick);
   addEventListener('resize', () => { dirty = true; kick(); });
   kick();
 })();

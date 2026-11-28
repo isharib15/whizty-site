@@ -39,6 +39,19 @@
     el.hidden = false;
   });
 
+  /* Copy email address: shown only where the browser can copy. Nothing is stored or sent. */
+  $$('[data-copy-email]').forEach(btn => {
+    if (!navigator.clipboard) return;
+    const label = btn.textContent;
+    btn.closest('[data-copy-wrap]').hidden = false;
+    btn.addEventListener('click', () => {
+      navigator.clipboard.writeText('support@whizty.com')
+        .then(() => { btn.textContent = 'Email address copied'; },
+          () => { btn.textContent = 'Could not copy, please type the address'; })
+        .then(() => setTimeout(() => { btn.textContent = label; }, 4000));
+    });
+  });
+
   /* ---------- 2. Magnetic buttons (pull gently toward the cursor) ---------- */
   if (!reduceMotion && matchMedia('(hover: hover) and (pointer: fine)').matches) {
     const mags = $$('.magnetic');
