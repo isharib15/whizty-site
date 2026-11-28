@@ -193,7 +193,7 @@ body.modal-open .neev-canvas { opacity: 0; }
 .text-link { font-weight: 800; color: var(--ink); text-decoration-color: var(--orange); text-decoration-thickness: 3px; text-underline-offset: 4px; }
 .buddies { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; margin-top: 18px; }
 .buddies span { display: grid; place-items: center; width: 76px; height: 76px; border-radius: 50%; background: var(--surface); box-shadow: 0 7px 12px rgba(60, 60, 40, .2), inset 2px 2px 4px #fff; }
-.buddies img { width: 62px; height: 62px; }
+.buddies img { width: 62px; height: 62px; border-radius: 50%; }
 
 /* ---------- Curriculum (looks like the app's "What will my child learn?") ---------- */
 .skills { background: var(--patch), var(--surface); border-radius: 40px; box-shadow: var(--clay); margin-inline: 16px; }
